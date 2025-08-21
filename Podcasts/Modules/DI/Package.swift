@@ -3,35 +3,41 @@
 
 import PackageDescription
 
-private var networkLayer: Target.Dependency {
-    .product(name: "NetworkLayer", package: "NetworkLayer")
+private var targets: [Target.Dependency] {
+    [
+        .byName(name: "Domain"),
+        .byName(name: "Data"),
+        .byName(name: "Common"),
+        .byName(name: "HomeScreen")
+    ]
 }
 
 private var packageDependency: [Package.Dependency] {
     [
-        .package(url: "https://github.com/iNoor72/NetworkLayer", exact: "1.0.3"),
-        .package(name: "Common", path: "../Common")
-        
+        .package(name: "Domain", path: "../Domain"),
+        .package(name: "Data", path: "../Data"),
+        .package(name: "Common", path: "../Common"),
+        .package(name: "HomeScreen", path: "../HomeScreen")
     ]
 }
 
 let package = Package(
-    name: "Domain",
+    name: "DI",
     platforms: [.iOS(.v16)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Domain",
-            targets: ["Domain"]),
+            name: "DI",
+            targets: ["DI"]),
     ],
     dependencies: packageDependency,
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Domain",
-            dependencies: [networkLayer, .byName(name: "Common")]
+            name: "DI",
+            dependencies: targets
         ),
-
+        
     ]
 )

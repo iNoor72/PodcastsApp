@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8799FA4A2E577B1C004DA9A2 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 8799FA492E577B1C004DA9A2 /* Common */; };
+		8799FA4C2E577B1C004DA9A2 /* DI in Frameworks */ = {isa = PBXBuildFile; productRef = 8799FA4B2E577B1C004DA9A2 /* DI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8799FA312E57795E004DA9A2 /* Podcasts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Podcasts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -14,7 +19,12 @@
 		8799FA412E57797B004DA9A2 /* Exceptions for "Podcasts" folder in "Podcasts" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Modules/Common,
+				Modules/Data,
+				Modules/DI,
 				Modules/Domain,
+				Modules/Presentation/HomeScreen,
+				Modules/Presentation/SearchScreen,
 			);
 			target = 8799FA302E57795E004DA9A2 /* Podcasts */;
 		};
@@ -36,6 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8799FA4A2E577B1C004DA9A2 /* Common in Frameworks */,
+				8799FA4C2E577B1C004DA9A2 /* DI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				8799FA332E57795E004DA9A2 /* Podcasts */,
+				8799FA482E577B1C004DA9A2 /* Frameworks */,
 				8799FA322E57795E004DA9A2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +69,13 @@
 				8799FA312E57795E004DA9A2 /* Podcasts.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8799FA482E577B1C004DA9A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,6 +98,8 @@
 			);
 			name = Podcasts;
 			packageProductDependencies = (
+				8799FA492E577B1C004DA9A2 /* Common */,
+				8799FA4B2E577B1C004DA9A2 /* DI */,
 			);
 			productName = Podcasts;
 			productReference = 8799FA312E57795E004DA9A2 /* Podcasts.app */;
@@ -337,6 +359,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8799FA492E577B1C004DA9A2 /* Common */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Common;
+		};
+		8799FA4B2E577B1C004DA9A2 /* DI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8799FA292E57795E004DA9A2 /* Project object */;
 }

@@ -6,12 +6,21 @@
 //
 
 import SwiftUI
+import DI
+import Common
 
 @main
-struct PodcastsApp: App {
+struct PodcastApp: App {
+    private let coordinator = AppCoordinator(path: [])
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView(
+                coordinator: coordinator,
+                root: {
+                    coordinator.view(for: .homeScreen)
+                }
+            )
         }
     }
 }

@@ -1,0 +1,15 @@
+{
+  "originHash" : "e96d6a2508eb0719b348a1f1795934aa9c6e1eb27868c97762127e7b704217ee",
+  "pins" : [
+    {
+      "identity" : "networklayer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/iNoor72/NetworkLayer",
+      "state" : {
+        "revision" : "79e8af217ba7a9dd79260442d6800eeba0b86cd1",
+        "version" : "1.0.3"
+      }
+    }
+  ],
+  "version" : 3
+}
