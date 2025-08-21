@@ -10,7 +10,7 @@ import Common
 
 public enum APIConstants {
     static func getBundleInfo(for key: String) -> String {
-        guard let info = Bundle.module.object(forInfoDictionaryKey: key) as? String else {
+        guard let info = Bundle.main.object(forInfoDictionaryKey: key) as? String else {
 #if DEBUG
             print("Failed to find value in plist for key: \(key)")
             return ""
@@ -22,3 +22,4 @@ public enum APIConstants {
         return info
     }
 }
+

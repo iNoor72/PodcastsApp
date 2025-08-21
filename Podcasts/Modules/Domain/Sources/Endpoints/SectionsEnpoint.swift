@@ -12,7 +12,7 @@ public enum SectionsEnpoint: Endpoint {
     case fetchSections(page: Int)
     
     public var base: String {
-        return "https://api-v2-b2sit6oh3a-uc.a.run.app"
+        return "https://" + APIConstants.getBundleInfo(for: APIKeys.fetchPodcastsBaseURL)
     }
     
     public var path: String {

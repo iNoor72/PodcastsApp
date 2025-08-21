@@ -19,6 +19,7 @@
 		8799FA412E57797B004DA9A2 /* Exceptions for "Podcasts" folder in "Podcasts" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Info.plist,
 				Modules/Common,
 				Modules/Data,
 				Modules/DI,
@@ -162,6 +163,8 @@
 /* Begin XCBuildConfiguration section */
 		8799FA3A2E577960004DA9A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8799FA332E57795E004DA9A2 /* Podcasts */;
+			baseConfigurationReferenceRelativePath = Configurations/BaseConfiguration.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -226,6 +229,8 @@
 		};
 		8799FA3B2E577960004DA9A2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8799FA332E57795E004DA9A2 /* Podcasts */;
+			baseConfigurationReferenceRelativePath = Configurations/BaseConfiguration.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -283,6 +288,8 @@
 		};
 		8799FA3D2E577960004DA9A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8799FA332E57795E004DA9A2 /* Podcasts */;
+			baseConfigurationReferenceRelativePath = Configurations/BaseConfiguration.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -291,6 +298,7 @@
 				DEVELOPMENT_TEAM = NF6L68DRU6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Podcasts/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -311,6 +319,8 @@
 		};
 		8799FA3E2E577960004DA9A2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 8799FA332E57795E004DA9A2 /* Podcasts */;
+			baseConfigurationReferenceRelativePath = Configurations/BaseConfiguration.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -319,6 +329,7 @@
 				DEVELOPMENT_TEAM = NF6L68DRU6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Podcasts/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

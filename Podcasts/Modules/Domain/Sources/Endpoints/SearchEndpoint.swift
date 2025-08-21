@@ -12,7 +12,7 @@ public enum SearchEndpoint: Endpoint {
     case search(query: String)
     
     public var base: String {
-        return APIConstants.getBundleInfo(for: APIKeys.searchPodcastsBaseURL)
+        return "https://" + APIConstants.getBundleInfo(for: APIKeys.searchPodcastsBaseURL)
     }
     
     public var path: String {
