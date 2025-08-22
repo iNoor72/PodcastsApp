@@ -16,13 +16,13 @@ public final class SearchRepository: SearchRepositoryProtocol {
         self.network = network
     }
     
-    public func search(query: String) async throws -> [PodcastSection]? {
+    public func search(query: String) async throws -> [SearchSection]? {
         let endpoint = SearchEndpoint.search(query: query)
-        let result: Result<[PodcastSectionResponse]?, NetworkError> = await network.request(with: endpoint)
+        let result: Result<SearchResponse?, NetworkError> = await network.request(with: endpoint)
         
         switch result {
-        case .success(let sections):
-            guard let sections else {
+        case .success(let response):
+            guard let sections = response?.sections else {
                 return []
             }
             

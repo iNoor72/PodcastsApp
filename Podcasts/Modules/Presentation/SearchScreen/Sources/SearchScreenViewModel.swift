@@ -30,7 +30,7 @@ public final class SearchScreenViewModel: ObservableObject {
     @Published public var viewState: SearchScreenViewState = .initial
     @Published var searchQuery: String = ""
     @Published var debounceValue = ""
-    @Published var sections: [PodcastSection] = []
+    @Published var sections: [SearchSection] = []
     private let dependencies: SearchScreenViewModelDependencies
     
     public init(dependencies: SearchScreenViewModelDependencies) {

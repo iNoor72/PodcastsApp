@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol SearchRepositoryProtocol {
-    func search(query: String) async throws -> [PodcastSection]?
+    func search(query: String) async throws -> [SearchSection]?
 }

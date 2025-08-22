@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol SearchUseCase {
-    func search(with query: String) async throws -> [PodcastSection]?
+    func search(with query: String) async throws -> [SearchSection]?
 }
 
 public final class DefaultSearchUseCase: SearchUseCase {
@@ -18,7 +18,7 @@ public final class DefaultSearchUseCase: SearchUseCase {
         self.repository = repository
     }
     
-    public func search(with query: String) async throws -> [PodcastSection]? {
+    public func search(with query: String) async throws -> [SearchSection]? {
         return try await repository.search(query: query)
     }
 }

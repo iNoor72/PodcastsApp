@@ -35,6 +35,7 @@ public struct SearchBarView: View {
     
     private var searchIcon: some View {
         Image(systemName: Constants.searchBarIcon)
+            .foregroundStyle(.white)
     }
     
     private var searchTextField: some View {
@@ -43,5 +44,6 @@ public struct SearchBarView: View {
             text: $query,
             prompt: Text("Search ...").foregroundColor(.init(white: 1, opacity: 0.4))
         )
+        .foregroundStyle(.white)
     }
 }

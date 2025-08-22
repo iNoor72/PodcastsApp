@@ -15,7 +15,7 @@ struct DomainModelsHelper {
         return sections.map(convertToDomainModel)
     }
 
-    static func convertToDomainModel(_ section: PodcastSectionResponse)
+    private static func convertToDomainModel(_ section: PodcastSectionResponse)
         -> PodcastSection
     {
         return PodcastSection(
@@ -33,7 +33,7 @@ struct DomainModelsHelper {
         return content.map(convertToDomainModel)
     }
 
-    static func convertToDomainModel(_ content: PodcastContentResponse)
+    private static func convertToDomainModel(_ content: PodcastContentResponse)
         -> PodcastContent
     {
         return PodcastContent(
@@ -80,9 +80,60 @@ struct DomainModelsHelper {
         return chapters?.map(convertToDomainModel) ?? []
     }
 
-    static func convertToDomainModel(_ chapter: PodcastChapterResponse)
+    private static func convertToDomainModel(_ chapter: PodcastChapterResponse)
         -> PodcastChapter
     {
         return PodcastChapter(title: chapter.title)
+    }
+    
+    static func convertToDomainModel(_ searchSections: [SearchSectionResponse]) -> [SearchSection] {
+        return searchSections.map(convertToDomainModel)
+    }
+    
+    private static func convertToDomainModel(_ searchSection: SearchSectionResponse) -> SearchSection {
+        return SearchSection(name: searchSection.name, type: SectionType(rawValue: searchSection.contentType) ?? .square, contentType: searchSection.contentType, order: searchSection.order, content: convertToDomainModel(searchSection.content))
+    }
+    
+    static func convertToDomainModel(_ searchContent: [SearchContentResponse]) -> [PodcastContent] {
+        return searchContent.map(convertToDomainModel)
+    }
+    
+    private static func convertToDomainModel(_ searchContent: SearchContentResponse) -> PodcastContent {
+        return PodcastContent(
+            podcastID: searchContent.podcastID,
+            name: searchContent.name,
+            description: searchContent.description,
+            avatarURL: searchContent.avatarURL,
+            episodeCount: Int(searchContent.episodeCount) ?? 0,
+            duration: Int(searchContent.duration) ?? 0,
+            priority: Int(searchContent.priority) ?? 0,
+            popularityScore: Int(searchContent.popularityScore) ?? 0,
+            score: Double(searchContent.score) ?? 0,
+            language: searchContent.language,
+            podcastPopularityScore: nil,
+            podcastPriority: nil,
+            episodeID: nil,
+            seasonNumber: nil,
+            episodeType: .none,
+            podcastName: nil,
+            authorName: nil,
+            number: nil,
+            separatedAudioURL: nil,
+            audioURL: nil,
+            releaseDate: nil,
+            chapters: nil,
+            paidIsEarlyAccess: nil,
+            paidIsNowEarlyAccess: nil,
+            paidIsExclusive: nil,
+            paidTranscriptURL: nil,
+            freeTranscriptURL: nil,
+            paidIsExclusivePartially: nil,
+            paidExclusiveStartTime: nil,
+            paidEarlyAccessDate: nil,
+            paidEarlyAccessAudioURL: nil,
+            paidExclusivityType: nil,
+            audiobookID: nil,
+            articleID: nil
+        )
     }
 }
