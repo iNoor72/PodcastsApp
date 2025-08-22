@@ -8,5 +8,5 @@
 import Foundation
 
 public enum AppConstants {
-    static let imagePlaceholderName = "image-placeholder"
+    public static let imagePlaceholderName = "image-placeholder"
 }
