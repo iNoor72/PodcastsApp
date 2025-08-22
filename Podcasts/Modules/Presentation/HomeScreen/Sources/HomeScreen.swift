@@ -42,12 +42,10 @@ struct ContentSection: View {
             switch section.type {
             case .square:
                 HorizontalCardList(items: section.content, isRTL: isRTL)
-            case .bigSquare:
-                HorizontalCardList(items: section.content, isRTL: isRTL)
-            case .audiobookBigSquare:
-                HorizontalCardList(items: section.content, isRTL: isRTL)
+            case .bigSquare, .audiobookBigSquare:
+                HorizontalBigCardList(items: section.content, isRTL: isRTL)
             case .queue:
-                HorizontalCardList(items: section.content, isRTL: isRTL)
+                HorizontalQueueList(items: section.content, isRTL: isRTL)
             case .twoLinesGrid:
                 HorizontalGridCardList(items: section.content, isRTL: isRTL)
             }
@@ -122,6 +120,38 @@ struct HorizontalCardList: View {
     }
 }
 
+struct HorizontalBigCardList: View {
+    let items: [PodcastContent]
+    let isRTL: Bool
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                ForEach(items, id: \.id) { item in
+                    BigSquareCard(podcast: item)
+                }
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+}
+
+struct HorizontalQueueList: View {
+    let items: [PodcastContent]
+    let isRTL: Bool
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                ForEach(items, id: \.id) { item in
+                    QueueCard(podcast: item)
+                }
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+}
+
 public struct PodcastCard: View {
     private let podcast: PodcastContent
     public init(podcast: PodcastContent) {
@@ -130,7 +160,7 @@ public struct PodcastCard: View {
     
     public var body: some View {
         VStack(alignment: .leading) {
-            CacheAsyncImage(urlString: podcast.avatarURL, contentMode: .fit, content: { phase in
+            CacheAsyncImage(urlString: podcast.avatarURL, content: { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
@@ -220,18 +250,148 @@ public struct GridCard: View {
         }
         .frame(maxWidth: .infinity)
         .frame(height: 150)
-//        .padding(.horizontal, 16)
-        
-    }
-}
-
-public struct SquareCard: View {
-    public var body: some View {
     }
 }
 
 public struct BigSquareCard: View {
+    private let podcast: PodcastContent
+    public init(podcast: PodcastContent) {
+        self.podcast = podcast
+    }
+    
     public var body: some View {
+        CacheAsyncImage(urlString: podcast.avatarURL, content: { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+                    .foregroundStyle(.white)
+                
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(8.0)
+                    .overlay {
+                        VStack {
+                            Spacer()
+                            VStack(alignment: .leading) {
+                                Text(podcast.podcastName ?? podcast.name)
+                                    .foregroundStyle(.white)
+                                    .bold()
+                                    .padding(.leading, 4)
+                                    .lineLimit(1)
+                                
+                                Text(podcast.duration.secondsToHoursAndMinutes())
+                                    .foregroundStyle(.white)
+                                    .padding(.leading, 4)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .bottomLeading)
+                            .blurBackground()
+                        }
+                    }
+                
+                //Including error state
+            default:
+                Image(AppConstants.imagePlaceholderName)
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(8.0)
+            }
+        })
+        .frame(height: 280)
+    }
+}
+
+public struct QueueCard: View {
+    private let podcast: PodcastContent
+    
+    public init(podcast: PodcastContent) {
+        self.podcast = podcast
+    }
+    
+    public var body: some View {
+        HStack(spacing: 8) {
+            ZStack {
+                CacheAsyncImage(urlString: podcast.avatarURL, content: { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .foregroundStyle(.white)
+                        
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(8.0)
+                        
+                        //Including error state
+                    default:
+                        Image(AppConstants.imagePlaceholderName)
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(8.0)
+                    }
+                })
+                .frame(width: 110, height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .padding(.leading, 16)
+            .padding(.vertical, 10)
+            
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(podcast.duration.secondsToHoursAndMinutes())
+                        .foregroundColor(.gray)
+                        .font(.system(size: 12))
+                    
+                    Text("•")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 12))
+                    
+                    Text(String(podcast.episodeCount ?? 0) + " episodes")
+                        .foregroundColor(.orange)
+                        .font(.system(size: 12, weight: .medium))
+                }
+                
+                Text(podcast.name)
+                    .foregroundColor(.white)
+                    .font(.system(size: 16, weight: .bold))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+                
+                Text(podcast.description)
+                    .foregroundColor(.gray)
+                    .font(.system(size: 14))
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+            }
+            .padding(.vertical, 16)
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Image(systemName: "play.fill")
+                        .foregroundColor(.black)
+                        .font(.system(size: 12))
+                        .background {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 30, height: 30)
+                        }
+                }
+            }
+            .padding(.trailing, 16)
+            .padding(.bottom, 16)
+        }
+        .frame(maxWidth: UIScreen.main.bounds.width - 32)
+        .frame(height: 120)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(red: 0.15, green: 0.15, blue: 0.2))
+        )
     }
 }
 

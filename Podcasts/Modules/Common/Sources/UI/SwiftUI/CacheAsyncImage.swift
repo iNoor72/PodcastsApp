@@ -13,20 +13,17 @@ public struct CacheAsyncImage<Content>: View where Content: View {
     private let transaction: Transaction
     private let content: (AsyncImagePhase) -> Content
     private let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
-    private let contentMode: ContentMode
     @State private var trialsCounter = 5
 
     public init(
         urlString: String,
         scale: CGFloat = 1.0,
         transaction: Transaction = Transaction(),
-        contentMode: ContentMode = .fit,
         @ViewBuilder content: @escaping (AsyncImagePhase) -> Content
     ) {
         self.url = URL(string: urlString)
         self.scale = scale
         self.transaction = transaction
-        self.contentMode = contentMode
         self.content = content
     }
 
@@ -43,7 +40,7 @@ public struct CacheAsyncImage<Content>: View where Content: View {
                 if trialsCounter <= 0 {
                     Image(AppConstants.imagePlaceholderName)
                         .resizable()
-                        .aspectRatio(contentMode: contentMode)
+                        .scaledToFit()
                         .cornerRadius(8.0)
                 } else {
                     cacheAndRender(phase: phase)
