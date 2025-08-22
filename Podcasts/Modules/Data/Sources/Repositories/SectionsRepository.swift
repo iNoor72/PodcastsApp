@@ -16,14 +16,17 @@ public final class SectionsRepository: SectionsRepositoryProtocol {
         self.network = network
     }
 
-    public func fetchSections(page: Int) async throws -> [PodcastSection] {
+    public func fetchSections(page: Int) async throws -> HomeScreenDataModel {
         let endpoint = SectionsEnpoint.fetchSections(page: page)
         let result: Result<SectionsResponse, NetworkError> = await network.request(with: endpoint)
 
         switch result {
         case .success(let response):
-            return DomainModelsHelper.convertToDomainModel(response.sections)
-
+            let sections = DomainModelsHelper.convertToDomainModel(response.sections)
+            let totalPages = response.pagination.totalPages
+            
+            return HomeScreenDataModel(sections: sections, totalPages: totalPages)
+            
         case .failure(let error):
             throw error
         }

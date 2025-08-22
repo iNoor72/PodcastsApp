@@ -18,6 +18,9 @@ public struct HomeScreen: View {
             LazyVStack(spacing: 32) {
                 ForEach(viewModel.sections, id: \.id) { section in
                     ContentSection(section: section, isRTL: isRTL)
+                        .task {
+                            await viewModel.fetchMorePodcastsIfNeeded(item: section)
+                        }
                 }
             }
             .padding(.vertical, 20)

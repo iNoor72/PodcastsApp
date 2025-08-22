@@ -30,8 +30,8 @@ public final class HomeScreenViewModel: ObservableObject {
     @Published public var viewState: HomeScreenViewState = .initial
     private let dependencies: HomeScreenViewModelDependencies
     private var currentPage = 1
-    private var finalPage = 0
-    var sections: [PodcastSection] = []
+    private var totalPages = 0
+    @Published var sections: [PodcastSection] = []
     
     public init(dependencies: HomeScreenViewModelDependencies) {
         self.dependencies = dependencies
@@ -41,9 +41,9 @@ public final class HomeScreenViewModel: ObservableObject {
         viewState = .loading
         
         do {
-            let sections = try await dependencies.fetchPodcastsUseCase.fetchSections(page: currentPage)
-            self.sections = sections
-            self.finalPage = 10
+            let result = try await dependencies.fetchPodcastsUseCase.fetchSections(page: currentPage)
+            self.sections = result.sections
+            self.totalPages = result.totalPages
             self.viewState = .loaded
             
         } catch {
@@ -53,12 +53,14 @@ public final class HomeScreenViewModel: ObservableObject {
     }
     
     @MainActor
-    public func fetchMorePodcasts() async {
-        if currentPage < finalPage {
+    public func fetchMorePodcastsIfNeeded(item: PodcastSection) async {
+        guard item == sections.last else { return }
+        
+        if currentPage < totalPages {
             currentPage += 1
             do {
-                let sections = try await dependencies.fetchPodcastsUseCase.fetchSections(page: currentPage)
-                self.sections.append(contentsOf: sections)
+                let result = try await dependencies.fetchPodcastsUseCase.fetchSections(page: currentPage)
+                self.sections.append(contentsOf: result.sections)
             } catch {
                 let errorMessage = error.localizedDescription
                 await MainActor.run {

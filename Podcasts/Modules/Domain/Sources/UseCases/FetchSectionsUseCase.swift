@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol FetchSectionsUseCase: Sendable {
-    func fetchSections(page: Int) async throws -> [PodcastSection]
+    func fetchSections(page: Int) async throws -> HomeScreenDataModel
 }
 
 public final class DefaultFetchSectionsUseCase: FetchSectionsUseCase {
@@ -18,7 +18,7 @@ public final class DefaultFetchSectionsUseCase: FetchSectionsUseCase {
         self.sectionsRepository = sectionsRepository
     }
     
-    public func fetchSections(page: Int) async throws -> [PodcastSection] {
+    public func fetchSections(page: Int) async throws -> HomeScreenDataModel {
         return try await sectionsRepository.fetchSections(page: page)
     }
 }

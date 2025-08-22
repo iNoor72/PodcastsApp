@@ -8,5 +8,5 @@
 import Foundation
 
 public protocol SectionsRepositoryProtocol: Sendable {
-    func fetchSections(page: Int) async throws -> [PodcastSection]
+    func fetchSections(page: Int) async throws -> HomeScreenDataModel
 }
