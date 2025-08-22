@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SearchUseCase.swift
 //  Domain
 //
 //  Created by Noor El-Din Walid on 19/08/2025.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-public protocol SearchUseCase {
+public protocol SearchUseCase: Sendable {
     func search(with query: String) async throws -> [PodcastSection]?
 }
 
 public final class DefaultSearchUseCase: SearchUseCase {
     private let repository: SearchRepositoryProtocol
     
-    init(repository: SearchRepositoryProtocol) {
+    public init(repository: SearchRepositoryProtocol) {
         self.repository = repository
     }
     

@@ -19,6 +19,23 @@ struct PodcastApp: App {
                 coordinator: coordinator,
                 root: {
                     coordinator.view(for: .homeScreen)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                Text("Home")
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
+                            
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.white)
+                                    .onTapGesture {
+                                        coordinator.path.append(.searchScreen)
+                                    }
+                            }
+                        }
+                        .toolbarBackground(.black, for: .navigationBar)
                 }
             )
         }

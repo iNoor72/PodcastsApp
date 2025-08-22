@@ -12,13 +12,16 @@ let package = Package(
             name: "SearchScreen",
             targets: ["SearchScreen"]),
     ],
-    dependencies: [.package(name: "Common", path: "../Common")],
+    dependencies: [
+        .package(name: "Common", path: "../Common"),
+        .package(name: "Domain", path: "../Domain")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "SearchScreen",
-            dependencies: [.byName(name: "Common")]
+            dependencies: ["Common", "Domain"]
         ),
 
     ]

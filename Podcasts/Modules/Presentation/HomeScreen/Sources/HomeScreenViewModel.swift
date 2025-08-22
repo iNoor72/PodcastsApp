@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public struct HomeScreenViewModelDependencies : Sendable {
+public struct HomeScreenViewModelDependencies: Sendable {
     let coordinator: HomeCoordinator
     let fetchPodcastsUseCase: FetchSectionsUseCase
     

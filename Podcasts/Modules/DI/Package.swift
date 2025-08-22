@@ -8,7 +8,8 @@ private var targets: [Target.Dependency] {
         .byName(name: "Domain"),
         .byName(name: "Data"),
         .byName(name: "Common"),
-        .byName(name: "HomeScreen")
+        .byName(name: "HomeScreen"),
+        .byName(name: "SearchScreen")
     ]
 }
 
@@ -17,7 +18,8 @@ private var packageDependency: [Package.Dependency] {
         .package(name: "Domain", path: "../Domain"),
         .package(name: "Data", path: "../Data"),
         .package(name: "Common", path: "../Common"),
-        .package(name: "HomeScreen", path: "../HomeScreen")
+        .package(name: "HomeScreen", path: "../HomeScreen"),
+        .package(name: "SearchScreen", path: "../SearchScreen")
     ]
 }
 

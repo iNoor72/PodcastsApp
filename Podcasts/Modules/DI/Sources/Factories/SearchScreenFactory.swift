@@ -6,12 +6,24 @@
 //
 
 import SwiftUI
+import SearchScreen
 import Common
+import Domain
+import Data
+import NetworkLayer
 
 final class SearchScreenFactory: AnyFactory {
     typealias Screen = View
     
     @MainActor static func make(rootCoordinator: any RoutableCoordinator) -> any Screen {
-        EmptyView()
+        let networkService = NetworkManager.shared
+        let repository = SearchRepository(network: networkService)
+        let useCase = DefaultSearchUseCase(repository: repository)
+        let coordinator = SearchCoordinator(path: [])
+        let dependencies = SearchScreenViewModelDependencies(coordinator: coordinator, searchUseCase: useCase)
+        
+        let viewModel = SearchScreenViewModel(dependencies: dependencies)
+        coordinator.rootCoordinator = rootCoordinator
+        return SearchScreen(viewModel: viewModel)
     }
 }
