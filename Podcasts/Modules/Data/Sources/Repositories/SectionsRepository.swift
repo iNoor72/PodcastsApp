@@ -7,10 +7,10 @@
 
 import Domain
 import Foundation
-@preconcurrency import NetworkLayer
+import NetworkLayer
 
 public final class SectionsRepository: SectionsRepositoryProtocol {
-    nonisolated(unsafe) private let network: NetworkServiceProtocol
+    private let network: NetworkServiceProtocol
 
     public init(network: NetworkServiceProtocol) {
         self.network = network

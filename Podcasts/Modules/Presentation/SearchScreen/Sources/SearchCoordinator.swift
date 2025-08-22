@@ -25,7 +25,7 @@ public final class SearchCoordinator: RoutableCoordinator {
     @Published
     public var modal: ModalRoute<Route>?
     
-    public weak var rootCoordinator: RoutableCoordinator?
+    public weak var rootCoordinator: (any RoutableCoordinator)?
     
     @ViewBuilder
     public func view(for route: Route) -> some View {
