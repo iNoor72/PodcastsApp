@@ -33,13 +33,6 @@ public final class SectionNavigationHeader: UIView {
         return label
     }()
     
-    private let separatorLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white.withAlphaComponent(0.3)
-        return view
-    }()
-    
     private var backButtonLeadingConstraint: NSLayoutConstraint!
     private var backButtonTrailingConstraint: NSLayoutConstraint!
     public var onBackTapped: (() -> Void)?
@@ -91,7 +84,6 @@ public final class SectionNavigationHeader: UIView {
         
         addSubview(titleLabel)
         addSubview(backButton)
-        addSubview(separatorLine)
         
         setupConstraints()
         setupActions()
@@ -112,11 +104,6 @@ public final class SectionNavigationHeader: UIView {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 60),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -60),
-            
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 0.5),
             
             heightAnchor.constraint(equalToConstant: 60)
         ])

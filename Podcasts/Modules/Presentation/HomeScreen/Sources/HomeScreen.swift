@@ -36,7 +36,7 @@ struct ContentSection: View {
     let isRTL: Bool
     
     var body: some View {
-        VStack(alignment: isRTL ? .trailing : .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 16) {
             SectionNavigationHeaderView(title: section.name, showBackButton: true, languageDirection: isRTL ? .rightToLeft : .leftToRight)
             
             switch section.type {
@@ -86,20 +86,22 @@ struct SectionHeader: View {
 }
 
 struct HorizontalGridCardList: View {
+    private let rowItems = [
+        GridItem(.flexible(minimum: 100), spacing: 16),
+        GridItem(.flexible(minimum: 100), spacing: 16)
+    ]
+    
     let items: [PodcastContent]
     let isRTL: Bool
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: [
-                GridItem(.flexible(minimum: 200), spacing: 8),
-                GridItem(.flexible(minimum: 200), spacing: 8)
-            ], spacing: 4) {
+            LazyHGrid(rows: rowItems, spacing: 16) {
                 ForEach(items, id: \.id) { item in
                     GridCard(podcast: item)
-                        .padding(.horizontal, 16)
                 }
             }
+            .padding(.horizontal, 20)
         }
     }
 }
@@ -180,12 +182,10 @@ public struct PodcastCard: View {
                         .cornerRadius(8.0)
                 }
             })
-            .frame(height: 100)
+            .frame(height: UIScreen.main.bounds.width * 0.4)
             
             Text(podcast.name)
-                .frame(maxWidth: 100)
-                .lineLimit(0)
-                .truncationMode(.tail)
+                .frame(maxWidth: 150)
                 .foregroundStyle(.white)
             
             HStack {
@@ -227,29 +227,26 @@ public struct GridCard: View {
             })
             
             VStack(alignment: .leading) {
-                Text("Released \(DateFormatterHelper.formatDate(podcast.releaseDate))")
-                    .foregroundStyle(.white)
-                
                 Text(podcast.name)
                     .foregroundStyle(.white)
+                    .lineLimit(1)
                 
                 Spacer()
                 
                 HStack {
                     PlayButton(duration: podcast.duration.secondsToHoursAndMinutes())
                     Spacer()
-                    Button("Options") {
-                        
-                    }
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(.white)
                     
-                    Button("Add to playlist") {
-                        
-                    }
+                    Image(systemName: "text.badge.plus")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .foregroundStyle(.white)
                 }
             }
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 150)
+        .frame(height: 75)
     }
 }
 
@@ -270,7 +267,6 @@ public struct BigSquareCard: View {
                 image
                     .resizable()
                     .scaledToFit()
-                    .cornerRadius(8.0)
                     .overlay {
                         VStack {
                             Spacer()
@@ -278,17 +274,18 @@ public struct BigSquareCard: View {
                                 Text(podcast.podcastName ?? podcast.name)
                                     .foregroundStyle(.white)
                                     .bold()
-                                    .padding(.leading, 4)
                                     .lineLimit(1)
                                 
                                 Text(podcast.duration.secondsToHoursAndMinutes())
                                     .foregroundStyle(.white)
-                                    .padding(.leading, 4)
                             }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 8)
                             .frame(maxWidth: .infinity, alignment: .bottomLeading)
                             .blurBackground()
                         }
                     }
+                    .cornerRadius(8.0)
                 
                 //Including error state
             default:
@@ -298,7 +295,7 @@ public struct BigSquareCard: View {
                     .cornerRadius(8.0)
             }
         })
-        .frame(height: 280)
+        .frame(height: UIScreen.main.bounds.width * 0.8)
     }
 }
 
