@@ -5,7 +5,7 @@
 //  Created by Noor El-Din Walid on 19/08/2025.
 //
 
-public enum EpisodeType: String, Sendable {
+public enum EpisodeType: String {
     case full
     case trailer
 }

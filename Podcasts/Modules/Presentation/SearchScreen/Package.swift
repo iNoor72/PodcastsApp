@@ -21,8 +21,8 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "SearchScreen",
-            dependencies: ["Common", "Domain"]
+            dependencies: [.byName(name: "Common")]
         ),
-
-    ]
+    ],
+    swiftLanguageModes: [.version("5.9")]
 )

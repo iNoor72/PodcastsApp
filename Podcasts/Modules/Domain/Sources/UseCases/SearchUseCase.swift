@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol SearchUseCase: Sendable {
+public protocol SearchUseCase {
     func search(with query: String) async throws -> [PodcastSection]?
 }
 

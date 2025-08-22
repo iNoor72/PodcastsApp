@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PodcastSection: Sendable, Hashable, Identifiable, Equatable {
+public struct PodcastSection: Hashable, Identifiable, Equatable {
     public static func == (lhs: PodcastSection, rhs: PodcastSection) -> Bool {
         lhs.id == rhs.id
         && lhs.name == rhs.name

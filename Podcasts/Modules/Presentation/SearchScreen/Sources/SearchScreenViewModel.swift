@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public struct SearchScreenViewModelDependencies: Sendable {
+public struct SearchScreenViewModelDependencies {
     let coordinator: SearchCoordinator
     let searchUseCase: SearchUseCase
     
@@ -28,41 +28,35 @@ public struct SearchScreenViewModelDependencies: Sendable {
 @MainActor
 public final class SearchScreenViewModel: ObservableObject {
     @Published public var viewState: SearchScreenViewState = .initial
+    @Published var searchQuery: String = ""
+    @Published var debounceValue = ""
+    @Published var sections: [PodcastSection] = []
     private let dependencies: SearchScreenViewModelDependencies
-    private var currentPage = 1
-    private var finalPage = 0
-    var sections: [PodcastSection] = []
     
     public init(dependencies: SearchScreenViewModelDependencies) {
         self.dependencies = dependencies
+        $searchQuery
+            .debounce(for: 1.0, scheduler: RunLoop.main)
+            .assign(to: &$debounceValue)
     }
     
     public func searchPodcasts(with query: String) async {
-        viewState = .loading
+        await MainActor.run {
+            viewState = .loading
+        }
         
         do {
             let sections = try await dependencies.searchUseCase.search(with: query)
-            self.viewState = .loaded
+            await MainActor.run {
+                self.sections = sections ?? []
+                self.viewState = .loaded
+            }
             
         } catch {
             let errorMessage = error.localizedDescription
-            viewState = .error(errorMessage)
+            await MainActor.run {
+                viewState = .error(errorMessage)
+            }
         }
     }
-    
-//    @MainActor
-//    public func fetchMorePodcasts() async {
-//        if currentPage < finalPage {
-//            currentPage += 1
-//            do {
-//                let sections = try await dependencies.searchUseCase.search(with: query)
-//                self.sections.append(contentsOf: sections)
-//            } catch {
-//                let errorMessage = error.localizedDescription
-//                await MainActor.run {
-//                    viewState = .error(errorMessage)
-//                }
-//            }
-//        }
-//    }
 }

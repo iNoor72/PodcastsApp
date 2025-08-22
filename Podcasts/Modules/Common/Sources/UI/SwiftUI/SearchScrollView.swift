@@ -14,6 +14,20 @@ public struct SearchScrollView<ScrollContent: View, OnSearchContent: View> : Vie
     @ViewBuilder var scrollContent: ScrollContent
     @ViewBuilder var onSearchContent: OnSearchContent
     
+    public init(
+        query: Binding<String>,
+        showCancelButton: Bool,
+        cancelAction: (() -> Void)? = nil,
+        scrollContent: ScrollContent,
+        onSearchContent: OnSearchContent
+    ) {
+        self._query = query
+        self.showCancelButton = showCancelButton
+        self.cancelAction = cancelAction
+        self.scrollContent = scrollContent
+        self.onSearchContent = onSearchContent
+    }
+    
     public var body: some View {
         VStack(spacing: 24) {
             HStack {

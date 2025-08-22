@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol FetchSectionsUseCase: Sendable {
+public protocol FetchSectionsUseCase {
     func fetchSections(page: Int) async throws -> HomeScreenDataModel
 }
 

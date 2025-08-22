@@ -17,7 +17,7 @@ public enum SearchEndpoint: Endpoint {
     
     public var path: String {
         switch self {
-        case .search(query: let query):
+        case .search:
             return "/search"
         }
     }

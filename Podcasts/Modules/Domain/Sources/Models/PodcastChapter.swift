@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PodcastChapter: Sendable, Hashable, Identifiable, Equatable {
+public struct PodcastChapter: Hashable, Identifiable, Equatable {
     public var id: UUID = UUID()
     public let title: String
     

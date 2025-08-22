@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol SearchRepositoryProtocol: Sendable {
+public protocol SearchRepositoryProtocol {
     func search(query: String) async throws -> [PodcastSection]?
 }

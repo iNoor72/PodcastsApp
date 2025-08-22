@@ -40,6 +40,6 @@ let package = Package(
             name: "DI",
             dependencies: targets
         ),
-        
-    ]
+    ],
+    swiftLanguageModes: [.version("5.9")]
 )

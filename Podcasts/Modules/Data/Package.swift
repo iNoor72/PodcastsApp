@@ -20,6 +20,6 @@ let package = Package(
             name: "Data",
             dependencies: ["Domain"]
         ),
-
-    ]
+    ],
+    swiftLanguageModes: [.version("5.9")]
 )

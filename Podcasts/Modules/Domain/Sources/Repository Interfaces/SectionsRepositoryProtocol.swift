@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol SectionsRepositoryProtocol: Sendable {
+public protocol SectionsRepositoryProtocol {
     func fetchSections(page: Int) async throws -> HomeScreenDataModel
 }

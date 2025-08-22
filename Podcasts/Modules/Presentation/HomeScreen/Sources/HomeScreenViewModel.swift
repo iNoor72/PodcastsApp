@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public struct HomeScreenViewModelDependencies: Sendable {
+public struct HomeScreenViewModelDependencies {
     let coordinator: HomeCoordinator
     let fetchPodcastsUseCase: FetchSectionsUseCase
     
@@ -25,7 +25,6 @@ public struct HomeScreenViewModelDependencies: Sendable {
     case error(String)
 }
 
-@MainActor
 public final class HomeScreenViewModel: ObservableObject {
     @Published public var viewState: HomeScreenViewState = .initial
     private let dependencies: HomeScreenViewModelDependencies
@@ -38,17 +37,23 @@ public final class HomeScreenViewModel: ObservableObject {
     }
     
     public func fetchPodcasts() async {
-        viewState = .loading
+        await MainActor.run {
+            self.viewState = .loading
+        }
         
         do {
             let result = try await dependencies.fetchPodcastsUseCase.fetchSections(page: currentPage)
-            self.sections = result.sections
-            self.totalPages = result.totalPages
-            self.viewState = .loaded
+            await MainActor.run {
+                self.sections = result.sections
+                self.totalPages = result.totalPages
+                self.viewState = .loaded
+            }
             
         } catch {
             let errorMessage = error.localizedDescription
-            viewState = .error(errorMessage)
+            await MainActor.run {
+                viewState = .error(errorMessage)
+            }
         }
     }
     

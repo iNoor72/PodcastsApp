@@ -32,6 +32,6 @@ let package = Package(
             name: "Domain",
             dependencies: [networkLayer, .byName(name: "Common")]
         ),
-
-    ]
+    ],
+    swiftLanguageModes: [.version("5.9")]
 )

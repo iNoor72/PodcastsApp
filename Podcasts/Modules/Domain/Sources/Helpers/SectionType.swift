@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum SectionType: String, Sendable, Hashable {
+public enum SectionType: String, Hashable {
     case square
     case audiobookBigSquare = "big_square"
     case bigSquare = "big square"

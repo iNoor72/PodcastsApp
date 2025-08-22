@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct HomeScreenDataModel: Sendable, Hashable {
+public struct HomeScreenDataModel: Hashable {
     public let sections: [PodcastSection]
     public let totalPages: Int
     

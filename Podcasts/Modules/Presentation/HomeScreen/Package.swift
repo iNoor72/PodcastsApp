@@ -24,5 +24,6 @@ let package = Package(
             dependencies: ["Common", "Domain"]
         ),
 
-    ]
+    ],
+    swiftLanguageModes: [.version("5.9")]
 )

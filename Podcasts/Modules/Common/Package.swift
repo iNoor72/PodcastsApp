@@ -21,6 +21,6 @@ let package = Package(
                 .process("Resources")
             ]
         ),
-        
-    ]
+    ],
+    swiftLanguageModes: [.version("5.9")]
 )

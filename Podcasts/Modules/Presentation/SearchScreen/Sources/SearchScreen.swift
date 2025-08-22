@@ -9,17 +9,32 @@ import SwiftUI
 import Common
 
 public struct SearchScreen: View {
-    private let viewModel: SearchScreenViewModel
+    @ObservedObject private var viewModel: SearchScreenViewModel
     
     public init(viewModel: SearchScreenViewModel) {
         self.viewModel = viewModel
     }
-        
-        public var body: some View {
-            Text("A")
-                .font(.title)
-            Button("Navigate to B") {
-                
-            }
+    
+    public var body: some View {
+        VStack {
+            SearchBarView(query: $viewModel.searchQuery)
         }
+    }
+    
+//    @ViewBuilder
+//    private var contentView: some View {
+//        SearchScrollView(
+//            query: $viewModel.searchQuery,
+//            showCancelButton: true,
+//            scrollContent: {
+//                LazyVStack {
+//                    ProgressView()
+//                }
+//            }, onSearchContent: {
+//                LazyVStack {
+//                    ProgressView()
+//                }
+//            }
+//        )
+//    }
 }

@@ -10,6 +10,10 @@ import SwiftUI
 public struct SearchBarView: View {
     @Binding var query: String
     
+    public init(query: Binding<String>) {
+        self._query = query
+    }
+    
     private enum Constants {
         static let searchBarIcon = "magnifyingglass"
         static let contentSpacing: CGFloat = 16
