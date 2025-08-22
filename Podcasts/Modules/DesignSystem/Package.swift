@@ -4,25 +4,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "SearchScreen",
+    name: "DesignSystem",
     platforms: [.iOS(.v16)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "SearchScreen",
-            targets: ["SearchScreen"]),
+            name: "DesignSystem",
+            targets: ["DesignSystem"]),
     ],
     dependencies: [
-        .package(name: "Common", path: "../Common"),
         .package(name: "Domain", path: "../Domain"),
-        .package(name: "DesignSystem", path: "../DesignSystem")
+        .package(name: "Common", path: "../Common")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "SearchScreen",
-            dependencies: ["Common", "Domain", "DesignSystem"]
+            name: "DesignSystem",
+            dependencies: ["Common", "Domain"]
         ),
     ],
     swiftLanguageModes: [.version("5.9")]

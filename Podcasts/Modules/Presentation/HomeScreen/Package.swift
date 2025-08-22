@@ -14,16 +14,16 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "Common", path: "../Common"),
-        .package(name: "Domain", path: "../Domain")
+        .package(name: "Domain", path: "../Domain"),
+        .package(name: "DesignSystem", path: "../DesignSystem")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "HomeScreen",
-            dependencies: ["Common", "Domain"]
+            dependencies: ["Common", "Domain", "DesignSystem"]
         ),
-
     ],
     swiftLanguageModes: [.version("5.9")]
 )

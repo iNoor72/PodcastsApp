@@ -22,6 +22,7 @@
 				Info.plist,
 				Modules/Common,
 				Modules/Data,
+				Modules/DesignSystem,
 				Modules/DI,
 				Modules/Domain,
 				Modules/Presentation/HomeScreen,

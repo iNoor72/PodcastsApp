@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Common
+import DesignSystem
 
 public struct SearchScreen: View {
     @ObservedObject private var viewModel: SearchScreenViewModel
