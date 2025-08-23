@@ -13,9 +13,7 @@ import Data
 import NetworkLayer
 
 final class HomeScreenFactory: AnyFactory {
-    typealias Screen = View
-    
-    @MainActor static func make(rootCoordinator: any RoutableCoordinator) -> any Screen {
+    @MainActor static func make(rootCoordinator: any RoutableCoordinator) -> some View {
         let networkService = NetworkManager.shared
         let repository = SectionsRepository(network: networkService)
         let useCase = DefaultFetchSectionsUseCase(sectionsRepository: repository)

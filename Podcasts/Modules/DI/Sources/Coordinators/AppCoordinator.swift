@@ -10,6 +10,9 @@ import SwiftUI
 import Common
 
 public final class AppCoordinator: RoutableCoordinator {
+    @Published public var path: [Route] = []
+    @Published public var modal: ModalRoute<Route>?
+    
     public enum Route: Hashable {
         case homeScreen
         case searchScreen
@@ -20,19 +23,13 @@ public final class AppCoordinator: RoutableCoordinator {
         self.modal = modal
     }
     
-    @Published
-    public var path: [Route] = []
-    
-    @Published
-    public var modal: ModalRoute<Route>?
-    
     @ViewBuilder
     public func view(for route: Route) -> some View {
         switch route {
         case .homeScreen:
-            AnyView(HomeScreenFactory.make(rootCoordinator: self))
+            HomeScreenFactory.make(rootCoordinator: self)
         case .searchScreen:
-            AnyView(SearchScreenFactory.make(rootCoordinator: self))
+            SearchScreenFactory.make(rootCoordinator: self)
         }
     }
 }
