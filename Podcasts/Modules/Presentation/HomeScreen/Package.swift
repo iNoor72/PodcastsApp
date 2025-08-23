@@ -24,6 +24,11 @@ let package = Package(
             name: "HomeScreen",
             dependencies: ["Common", "Domain", "DesignSystem"]
         ),
+        .testTarget(
+            name: "HomeScreenTests",
+            dependencies: ["HomeScreen"],
+            path: "Tests/HomeScreenTests"
+        )
     ],
     swiftLanguageModes: [.version("5.9")]
 )
