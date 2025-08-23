@@ -38,6 +38,7 @@ struct PodcastApp: App {
                         .toolbarBackground(.black, for: .navigationBar)
                 }
             )
+            .accentColor(.white)
         }
     }
 }
