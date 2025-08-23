@@ -24,6 +24,11 @@ let package = Package(
             name: "SearchScreen",
             dependencies: ["Common", "Domain", "DesignSystem"]
         ),
+        .testTarget(
+            name: "SearchScreenTests",
+            dependencies: ["SearchScreen"],
+            path: "Tests/SearchScreenTests"
+        )
     ],
     swiftLanguageModes: [.version("5.9")]
 )

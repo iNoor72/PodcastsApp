@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol FetchSectionsUseCase {
+public protocol FetchSectionsUseCase: AnyObject {
     func fetchSections(page: Int) async throws -> HomeScreenDataModel
 }
 

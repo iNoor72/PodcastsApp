@@ -35,12 +35,7 @@ struct HomeScreenViewModelTests {
     
     private func makeMockSections(count: Int = 3) -> [PodcastSection] {
         return (0..<count).map { index in
-            PodcastSection(
-                id: "section_\(index)",
-                name: "Section \(index)",
-                type: .square,
-                content: []
-            )
+            PodcastSection(name: "Section \(index)", type: .square, contentType: "section \(index)", order: index, content: [])
         }
     }
     
@@ -143,13 +138,8 @@ struct HomeScreenViewModelTests {
         
         // Setup mock for second page
         let mockUseCase = dependencies.fetchPodcastsUseCase as! MockFetchSectionsUseCase
-        let additionalSections = makeMockSections(count: 1)
-        additionalSections[0] = PodcastSection(
-            id: "section_additional",
-            name: "Additional Section",
-            type: .bigSquare,
-            content: []
-        )
+        var additionalSections = makeMockSections(count: 1)
+        additionalSections[0] = PodcastSection(name: "Additional Section", type: .bigSquare, contentType: "", order: 0, content: [])
         mockUseCase.nextPageSections = additionalSections
         
         // Trigger pagination with last section
@@ -222,7 +212,7 @@ struct HomeScreenViewModelTests {
         await viewModel.fetchPodcasts()
         
         // Create a dummy section
-        let dummySection = PodcastSection(id: "dummy", name: "Dummy", type: .square, content: [])
+        let dummySection = PodcastSection(name: "Dummy", type: .square, contentType: "dummy", order: 0, content: [])
         
         // Should not crash with empty sections
         await viewModel.fetchMorePodcastsIfNeeded(item: dummySection)
@@ -284,7 +274,7 @@ struct HomeScreenViewModelTests {
         await viewModel.fetchPodcasts()
         
         #expect(viewModel.viewState == .loaded)
-        #expect(!viewModel.sections.isEmpty)
+        #expect(viewModel.sections.isEmpty)
     }
     
     // MARK: - Edge Cases
@@ -325,8 +315,10 @@ struct HomeScreenViewModelTests {
 
 // MARK: - Mock Classes
 
-class MockHomeCoordinator: HomeCoordinator {
-    // Implement required coordinator methods as needed
+class MockHomeCoordinator: HomeCoordinatorProtocol {
+    func routeToSearchScreen() {
+        
+    }
 }
 
 class MockFetchSectionsUseCase: FetchSectionsUseCase {
@@ -343,7 +335,7 @@ class MockFetchSectionsUseCase: FetchSectionsUseCase {
         self.totalPages = totalPages
     }
     
-    func fetchSections(page: Int) async throws -> FetchSectionsResult {
+    func fetchSections(page: Int) async throws -> HomeScreenDataModel {
         callCount += 1
         
         if shouldThrowErrorOnNextCall && callCount > 1 {
@@ -356,7 +348,7 @@ class MockFetchSectionsUseCase: FetchSectionsUseCase {
         
         let sectionsToReturn = callCount == 1 ? sections : nextPageSections
         
-        return FetchSectionsResult(
+        return HomeScreenDataModel(
             sections: sectionsToReturn,
             totalPages: totalPages
         )

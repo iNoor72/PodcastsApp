@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol SearchUseCase {
+public protocol SearchUseCase: AnyObject {
     func search(with query: String) async throws -> [SearchSection]?
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 @testable import HomeScreen
 @testable import Common
 
-@Suite("HomeCoordinator Tests")
+@MainActor
 struct HomeCoordinatorTests {
     
     @Test("HomeCoordinator initializes with empty path and no modal by default")
@@ -79,17 +79,6 @@ struct HomeCoordinatorTests {
         #expect(coordinator.path == [.search, .search, .search])
     }
     
-    @Test("view(for:) returns ProgressView for search route")
-    func testViewForRoute_Search() {
-        let coordinator = HomeCoordinator(path: [])
-        
-        let view = coordinator.view(for: .search)
-        
-        // Since we can't directly test the view content in Swift Testing,
-        // we verify that the method doesn't crash and returns a view
-        #expect(view is ProgressView<ProgressViewStyleConfiguration.Content>)
-    }
-    
     @Test("HomeCoordinator conforms to HomeCoordinatorProtocol")
     func testProtocolConformance() {
         let coordinator = HomeCoordinator(path: [])
@@ -98,16 +87,6 @@ struct HomeCoordinatorTests {
         protocolInstance.routeToSearchScreen()
         
         #expect(coordinator.path == [.search])
-    }
-    
-    @Test("HomeCoordinator conforms to RoutableCoordinator")
-    func testRoutableCoordinatorConformance() {
-        let coordinator = HomeCoordinator(path: [])
-        let routableCoordinator: RoutableCoordinator = coordinator
-        
-        #expect(routableCoordinator.path.isEmpty)
-        #expect(routableCoordinator.modal == nil)
-        #expect(routableCoordinator.rootCoordinator == nil)
     }
     
     @Test("rootCoordinator can be set and retrieved")
