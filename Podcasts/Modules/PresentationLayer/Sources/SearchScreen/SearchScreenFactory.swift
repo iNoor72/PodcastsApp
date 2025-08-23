@@ -6,22 +6,20 @@
 //
 
 import SwiftUI
-import SearchScreen
 import Common
 import Domain
 import Data
 import NetworkLayer
 
 final class SearchScreenFactory: AnyFactory {
-    @MainActor static func make(rootCoordinator: any RoutableCoordinator) -> some View {
+    @MainActor static func make(rootCoordinator: any NavigationCoordinator) -> some View {
         let networkService = NetworkManager.shared
         let repository = SearchRepository(network: networkService)
         let useCase = DefaultSearchUseCase(repository: repository)
-        let coordinator = SearchCoordinator(path: [])
+        let coordinator = SearchCoordinator(rootCoordinator: rootCoordinator)
         let dependencies = SearchScreenViewModelDependencies(coordinator: coordinator, searchUseCase: useCase)
         
         let viewModel = SearchScreenViewModel(dependencies: dependencies)
-        coordinator.rootCoordinator = rootCoordinator
         return SearchScreen(viewModel: viewModel)
     }
 }

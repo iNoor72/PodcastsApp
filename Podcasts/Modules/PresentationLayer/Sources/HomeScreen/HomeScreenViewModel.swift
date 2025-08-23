@@ -74,4 +74,8 @@ public final class HomeScreenViewModel: ObservableObject {
             }
         }
     }
+    
+    func searchButtonTapped() {
+        dependencies.coordinator.routeToSearch()
+    }
 }

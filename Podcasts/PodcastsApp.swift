@@ -6,38 +6,43 @@
 //
 
 import SwiftUI
-import DI
 import Common
+import PresentationLayer
+import DebugSwift
 
 @main
 struct PodcastApp: App {
-    private let coordinator = AppCoordinator(path: [])
+    @StateObject private var appCoordinator = AppCoordinator()
+    private let debugSwift = DebugSwift()
+    
+    init() {
+        debugSwift.setup()
+        debugSwift.setup(disable: [.leaksDetector])
+        debugSwift.show()
+    }
     
     var body: some Scene {
         WindowGroup {
-            NavigationView(
-                coordinator: coordinator,
-                root: {
-                    coordinator.view(for: .homeScreen)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .principal) {
-                                Text("Home")
-                                    .foregroundColor(.white)
-                                    .bold()
-                            }
-                            
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.white)
-                                    .onTapGesture {
-                                        coordinator.path.append(.searchScreen)
-                                    }
-                            }
-                        }
-                        .toolbarBackground(.black, for: .navigationBar)
+            CustomNavigationView(appCoordinator: appCoordinator)
+                .navigationBarTitle("")
+                .navigationBarHidden(true)
+        }
+    }
+}
+
+struct CustomNavigationView: View {
+    @ObservedObject private var appCoordinator: AppCoordinator
+    
+    public init(appCoordinator: AppCoordinator) {
+        self.appCoordinator = appCoordinator
+    }
+    
+    var body: some View {
+        NavigationStack(path: $appCoordinator.paths) {
+            appCoordinator.resolveInitialRouter().makeView()
+                .navigationDestination(for: AnyRoutable.self) { coordinator in
+                    coordinator.makeView()
                 }
-            )
         }
     }
 }

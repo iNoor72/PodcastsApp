@@ -15,31 +15,46 @@ public struct HomeScreen: View {
     }
         
     public var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 32) {
-                ForEach(viewModel.sections, id: \.id) { section in
-                    ContentSection(section: section, isRTL: isRTL)
-                        .onAppear {
-                            Task {
-                                await viewModel.fetchMorePodcastsIfNeeded(item: section)
-                            }
-                        }
+        VStack {
+            HStack {
+                Spacer()
+                Text("Home")
+                    .foregroundStyle(.white)
+                Spacer()
+                Button {
+                    viewModel.searchButtonTapped()
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.white)
                 }
             }
-            .padding(.vertical, 20)
-        }
-        .background(Color.black)
-        .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
-        .onAppear {
-            Task {
-                await viewModel.fetchPodcasts()
+            
+            ScrollView {
+                LazyVStack(spacing: 32) {
+                    ForEach(viewModel.sections, id: \.id) { section in
+                        HomeContentSection(section: section, isRTL: isRTL)
+                            .onAppear {
+                                Task {
+                                    await viewModel.fetchMorePodcastsIfNeeded(item: section)
+                                }
+                            }
+                    }
+                }
+                .padding(.vertical, 20)
+            }
+            .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
+            .onAppear {
+                Task {
+                    await viewModel.fetchPodcasts()
+                }
             }
         }
+        .background(Color.black)
     }
 }
 
 // MARK: - Main Section Component
-struct ContentSection: View {
+struct HomeContentSection: View {
     let section: PodcastSection
     let isRTL: Bool
     

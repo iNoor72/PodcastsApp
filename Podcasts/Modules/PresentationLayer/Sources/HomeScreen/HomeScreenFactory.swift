@@ -6,22 +6,20 @@
 //
 
 import SwiftUI
-import HomeScreen
 import Common
 import Domain
 import Data
 import NetworkLayer
 
 final class HomeScreenFactory: AnyFactory {
-    @MainActor static func make(rootCoordinator: any RoutableCoordinator) -> some View {
+    @MainActor static func make(rootCoordinator: any NavigationCoordinator) -> some View {
         let networkService = NetworkManager.shared
         let repository = SectionsRepository(network: networkService)
         let useCase = DefaultFetchSectionsUseCase(sectionsRepository: repository)
-        let coordinator = HomeCoordinator(path: [])
+        let coordinator = HomeCoordinator(rootCoordinator: rootCoordinator)
         let dependencies = HomeScreenViewModelDependencies(coordinator: coordinator, fetchPodcastsUseCase: useCase)
         
         let viewModel = HomeScreenViewModel(dependencies: dependencies)
-        coordinator.rootCoordinator = rootCoordinator
         return HomeScreen(viewModel: viewModel)
     }
 }

@@ -1,6 +1,15 @@
 {
-  "originHash" : "e96d6a2508eb0719b348a1f1795934aa9c6e1eb27868c97762127e7b704217ee",
+  "originHash" : "8ac902559048710426ed88eb7e7359cd88536421534c93b5ab0f330a48c1a1cd",
   "pins" : [
+    {
+      "identity" : "debugswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DebugSwift/DebugSwift",
+      "state" : {
+        "revision" : "3eb006f99a82e07af0db7eb7c77eb54b583e9a87",
+        "version" : "1.7.17"
+      }
+    },
     {
       "identity" : "networklayer",
       "kind" : "remoteSourceControl",

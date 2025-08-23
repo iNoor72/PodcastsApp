@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8752AB622E5A2CB500C340C1 /* PresentationLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 8752AB612E5A2CB500C340C1 /* PresentationLayer */; };
+		8752AB652E5A2E5400C340C1 /* DebugSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8752AB642E5A2E5400C340C1 /* DebugSwift */; };
 		8799FA4A2E577B1C004DA9A2 /* Common in Frameworks */ = {isa = PBXBuildFile; productRef = 8799FA492E577B1C004DA9A2 /* Common */; };
-		8799FA4C2E577B1C004DA9A2 /* DI in Frameworks */ = {isa = PBXBuildFile; productRef = 8799FA4B2E577B1C004DA9A2 /* DI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,10 +24,8 @@
 				Modules/Common,
 				Modules/Data,
 				Modules/DesignSystem,
-				Modules/DI,
 				Modules/Domain,
-				Modules/Presentation/HomeScreen,
-				Modules/Presentation/SearchScreen,
+				Modules/PresentationLayer,
 			);
 			target = 8799FA302E57795E004DA9A2 /* Podcasts */;
 		};
@@ -48,8 +47,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8752AB622E5A2CB500C340C1 /* PresentationLayer in Frameworks */,
 				8799FA4A2E577B1C004DA9A2 /* Common in Frameworks */,
-				8799FA4C2E577B1C004DA9A2 /* DI in Frameworks */,
+				8752AB652E5A2E5400C340C1 /* DebugSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +101,8 @@
 			name = Podcasts;
 			packageProductDependencies = (
 				8799FA492E577B1C004DA9A2 /* Common */,
-				8799FA4B2E577B1C004DA9A2 /* DI */,
+				8752AB612E5A2CB500C340C1 /* PresentationLayer */,
+				8752AB642E5A2E5400C340C1 /* DebugSwift */,
 			);
 			productName = Podcasts;
 			productReference = 8799FA312E57795E004DA9A2 /* Podcasts.app */;
@@ -131,6 +132,9 @@
 			);
 			mainGroup = 8799FA282E57795E004DA9A2;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8752AB632E5A2E5400C340C1 /* XCRemoteSwiftPackageReference "DebugSwift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8799FA322E57795E004DA9A2 /* Products */;
 			projectDirPath = "";
@@ -372,14 +376,30 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		8752AB632E5A2E5400C340C1 /* XCRemoteSwiftPackageReference "DebugSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DebugSwift/DebugSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.17;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		8752AB612E5A2CB500C340C1 /* PresentationLayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PresentationLayer;
+		};
+		8752AB642E5A2E5400C340C1 /* DebugSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8752AB632E5A2E5400C340C1 /* XCRemoteSwiftPackageReference "DebugSwift" */;
+			productName = DebugSwift;
+		};
 		8799FA492E577B1C004DA9A2 /* Common */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Common;
-		};
-		8799FA4B2E577B1C004DA9A2 /* DI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
