@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Domain
+import Common
 
 public struct BigSquareCard: View {
     private let podcast: PodcastContent
@@ -30,11 +31,13 @@ public struct BigSquareCard: View {
                             Spacer()
                             VStack(alignment: .leading) {
                                 Text(podcast.podcastName ?? podcast.name)
+                                    .font(CustomFonts.headline)
                                     .foregroundStyle(.white)
                                     .bold()
                                     .lineLimit(1)
                                 
                                 Text(podcast.duration.secondsToHoursAndMinutes())
+                                    .font(CustomFonts.callout)
                                     .foregroundStyle(.white)
                             }
                             .padding(.horizontal, 8)

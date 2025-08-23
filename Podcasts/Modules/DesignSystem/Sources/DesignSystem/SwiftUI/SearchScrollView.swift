@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Common
 
 public struct SearchScrollView<ScrollContent: View, OnSearchContent: View> : View {
     @Binding var query: String
@@ -54,6 +55,7 @@ extension SearchScrollView {
             cancelAction?()
         }
         .foregroundStyle(.white)
+        .font(CustomFonts.bodyLight)
     }
     
     private var scrollView: some View {

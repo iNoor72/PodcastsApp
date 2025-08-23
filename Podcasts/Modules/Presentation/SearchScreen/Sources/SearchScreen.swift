@@ -44,10 +44,9 @@ public struct SearchScreen: View {
     
     private var scrollContent: some View {
         LazyVStack(spacing: 16) {
-            if !viewModel.searchQuery.isEmpty {
-                ProgressView("Loading search results for \(viewModel.searchQuery)")
-            } else {
+            if viewModel.searchQuery.isEmpty {
                 Text("Type something to search...")
+                    .font(CustomFonts.bodyLight)
             }
         }
         .foregroundStyle(.white)
@@ -55,19 +54,12 @@ public struct SearchScreen: View {
     
     @ViewBuilder
     private var onSearchContent: some View {
-        LazyVStack {
-            if viewModel.sections.isEmpty {
-                Text("No search results for \(viewModel.searchQuery)")
-                    .foregroundStyle(.white)
-            } else {
-                LazyVStack(spacing: 32) {
-                    ForEach(viewModel.sections, id: \.id) { section in
-                        ContentSection(section: section, isRTL: isRTL)
-                    }
-                }
-                .padding(.top, 16)
+        LazyVStack(spacing: 32) {
+            ForEach(viewModel.sections, id: \.id) { section in
+                ContentSection(section: section, isRTL: isRTL)
             }
         }
+        .padding(.top, 16)
     }
 }
 

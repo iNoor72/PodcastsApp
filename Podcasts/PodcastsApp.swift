@@ -13,6 +13,10 @@ import Common
 struct PodcastApp: App {
     private let coordinator = AppCoordinator(path: [])
     
+    init() {
+        FontManager.registerFonts()
+    }
+    
     var body: some Scene {
         WindowGroup {
             NavigationView(

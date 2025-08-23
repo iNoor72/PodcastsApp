@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Common
 
 public struct SearchBarView: View {
     @Binding var query: String
@@ -45,5 +46,6 @@ public struct SearchBarView: View {
             prompt: Text("Search ...").foregroundColor(.init(white: 1, opacity: 0.4))
         )
         .foregroundStyle(.white)
+        .font(CustomFonts.bodyLight)
     }
 }

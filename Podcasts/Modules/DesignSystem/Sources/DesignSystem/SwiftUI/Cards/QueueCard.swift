@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Domain
+import Common
 
 public struct QueueCard: View {
     private let podcast: PodcastContent
@@ -48,30 +49,28 @@ public struct QueueCard: View {
                 HStack {
                     Text(podcast.duration.secondsToHoursAndMinutes())
                         .foregroundColor(.gray)
-                        .font(.system(size: 12))
+                        .font(CustomFonts.footnote)
+                        .lineLimit(1)
                     
                     Text("•")
                         .foregroundColor(.gray)
-                        .font(.system(size: 12))
+                        .font(CustomFonts.footnote)
                     
                     Text(String(podcast.episodeCount ?? 0) + " episodes")
                         .foregroundColor(.orange)
-                        .font(.system(size: 12, weight: .medium))
+                        .font(CustomFonts.footnote)
+                        .lineLimit(1)
                 }
                 
                 Text(podcast.name)
                     .foregroundColor(.white)
-                    .font(.system(size: 16, weight: .bold))
+                    .font(CustomFonts.headline)
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
-                
-                Text(podcast.description)
-                    .foregroundColor(.gray)
-                    .font(.system(size: 14))
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.vertical, 16)
+            .frame(maxWidth: UIScreen.main.bounds.width - 16, alignment: .leading)
             
             VStack {
                 Spacer()
@@ -92,7 +91,7 @@ public struct QueueCard: View {
             .padding(.trailing, 16)
             .padding(.bottom, 16)
         }
-        .frame(maxWidth: UIScreen.main.bounds.width - 32)
+        .frame(maxWidth: UIScreen.main.bounds.width - 32, alignment: .leading)
         .frame(height: 120)
         .background(
             RoundedRectangle(cornerRadius: 16)

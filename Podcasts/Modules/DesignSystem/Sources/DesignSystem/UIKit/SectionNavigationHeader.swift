@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Common
 
 public final class SectionNavigationHeader: UIView {
     public enum LanguageDirection {
@@ -27,7 +28,7 @@ public final class SectionNavigationHeader: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = CustomFonts.title3UI
         label.textColor = .white
         label.textAlignment = .center
         return label
@@ -97,13 +98,12 @@ public final class SectionNavigationHeader: UIView {
         
         NSLayoutConstraint.activate([
             backButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
+            backButton.widthAnchor.constraint(equalToConstant: 35),
+            backButton.heightAnchor.constraint(equalToConstant: 35),
             
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 60),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -60),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
             
             heightAnchor.constraint(equalToConstant: 60)
         ])

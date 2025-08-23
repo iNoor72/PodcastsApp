@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Domain
+import Common
 
 public struct GridCard: View {
     private let podcast: PodcastContent
@@ -39,6 +40,7 @@ public struct GridCard: View {
             
             VStack(alignment: .leading) {
                 Text(podcast.name)
+                    .font(CustomFonts.headline)
                     .foregroundStyle(.white)
                     .lineLimit(1)
                 
@@ -46,14 +48,15 @@ public struct GridCard: View {
                 
                 HStack {
                     PlayButton(duration: podcast.duration.secondsToHoursAndMinutes())
+                        .frame(width: UIScreen.main.bounds.width * 0.35)
                     Spacer()
                     Image(systemName: "ellipsis")
                         .foregroundStyle(.white)
                     
                     Image(systemName: "text.badge.plus")
-                        .resizable()
-                        .frame(width: 15, height: 15)
                         .foregroundStyle(.white)
+                    
+                    Spacer()
                 }
             }
         }

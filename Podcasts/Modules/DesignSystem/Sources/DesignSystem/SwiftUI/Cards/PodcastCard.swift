@@ -40,13 +40,12 @@ public struct PodcastCard: View {
             .frame(height: UIScreen.main.bounds.width * 0.4)
             
             Text(podcast.name)
+                .font(CustomFonts.title3)
                 .frame(maxWidth: 150)
                 .foregroundStyle(.white)
             
             HStack {
                 PlayButton(duration: podcast.duration.secondsToHoursAndMinutes())
-                Text(DateFormatterHelper.formatDate(podcast.releaseDate))
-                    .foregroundStyle(.white)
             }
         }
     }

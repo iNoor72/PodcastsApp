@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Common
 
 public struct PlayButton: View {
     let duration: String
@@ -42,7 +43,7 @@ public struct PlayButton: View {
             }
             
             Text(duration)
-                .font(.system(size: 14, weight: .medium))
+                .font(CustomFonts.callout)
                 .foregroundColor(textColor)
             
             if isRTL {

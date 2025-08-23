@@ -13,7 +13,7 @@ public struct HomeScreen: View {
     public init(viewModel: HomeScreenViewModel) {
         self.viewModel = viewModel
     }
-        
+    
     public var body: some View {
         ScrollView {
             LazyVStack(spacing: 32) {
@@ -24,6 +24,12 @@ public struct HomeScreen: View {
                                 await viewModel.fetchMorePodcastsIfNeeded(item: section)
                             }
                         }
+                    
+                    if section != viewModel.sections.last {
+                        Divider()
+                            .frame(height: 0.5)
+                            .background(.white)
+                    }
                 }
             }
             .padding(.vertical, 20)
@@ -44,7 +50,7 @@ struct ContentSection: View {
     let isRTL: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 24) {
             SectionNavigationHeaderView(title: section.name, showBackButton: true, languageDirection: isRTL ? .rightToLeft : .leftToRight)
             
             switch section.type {
