@@ -36,7 +36,7 @@ public final class SearchScreenViewModel: ObservableObject {
     public init(dependencies: SearchScreenViewModelDependencies) {
         self.dependencies = dependencies
         $searchQuery
-            .debounce(for: 1.0, scheduler: RunLoop.main)
+            .debounce(for: .milliseconds(200), scheduler: RunLoop.main)
             .assign(to: &$debounceValue)
     }
     

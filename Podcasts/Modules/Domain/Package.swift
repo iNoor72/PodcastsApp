@@ -32,6 +32,11 @@ let package = Package(
             name: "Domain",
             dependencies: [networkLayer, .byName(name: "Common")]
         ),
+        .testTarget(
+            name: "DomainTests",
+            dependencies: ["Domain"],
+            path: "Tests/DomainTests"
+        )
     ],
     swiftLanguageModes: [.version("5.9")]
 )
