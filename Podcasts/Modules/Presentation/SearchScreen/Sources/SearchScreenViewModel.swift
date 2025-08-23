@@ -20,17 +20,17 @@ public struct SearchScreenViewModelDependencies {
 
 @frozen public enum SearchScreenViewState: Hashable {
     case initial
-    case loading
     case loaded
     case error(String)
 }
 
 @MainActor
-public final class SearchScreenViewModel: ObservableObject {
+public final class SearchScreenViewModel: ObservableObject, SearchViewModelProtocol {
     @Published public var viewState: SearchScreenViewState = .initial
-    @Published var searchQuery: String = ""
-    @Published var debounceValue = ""
+    @Published public var searchQuery: String = ""
+    @Published public var debounceValue = ""
     @Published var sections: [SearchSection] = []
+    @Published public var isLoading: Bool = false
     private let dependencies: SearchScreenViewModelDependencies
     
     public init(dependencies: SearchScreenViewModelDependencies) {
@@ -42,7 +42,7 @@ public final class SearchScreenViewModel: ObservableObject {
     
     public func searchPodcasts(with query: String) async {
         await MainActor.run {
-            viewState = .loading
+            self.isLoading = true
         }
         
         do {
@@ -50,11 +50,13 @@ public final class SearchScreenViewModel: ObservableObject {
             await MainActor.run {
                 self.sections = sections ?? []
                 self.viewState = .loaded
+                self.isLoading = false
             }
             
         } catch {
             let errorMessage = error.localizedDescription
             await MainActor.run {
+                self.isLoading = false
                 viewState = .error(errorMessage)
             }
         }

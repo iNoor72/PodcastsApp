@@ -20,17 +20,17 @@ public struct HomeScreenViewModelDependencies {
 
 @frozen public enum HomeScreenViewState: Hashable {
     case initial
-    case loading
     case loaded
     case error(String)
 }
 
-public final class HomeScreenViewModel: ObservableObject {
+public final class HomeScreenViewModel: ObservableObject, HomeViewModelProtocol {
     @Published public var viewState: HomeScreenViewState = .initial
     private let dependencies: HomeScreenViewModelDependencies
     private var currentPage = 1
     private var totalPages = 0
     @Published var sections: [PodcastSection] = []
+    @Published public var isLoading: Bool = false
     
     public init(dependencies: HomeScreenViewModelDependencies) {
         self.dependencies = dependencies
@@ -38,7 +38,7 @@ public final class HomeScreenViewModel: ObservableObject {
     
     public func fetchPodcasts() async {
         await MainActor.run {
-            self.viewState = .loading
+            self.isLoading = true
         }
         
         do {
@@ -47,11 +47,13 @@ public final class HomeScreenViewModel: ObservableObject {
                 self.sections = result.sections
                 self.totalPages = result.totalPages
                 self.viewState = .loaded
+                self.isLoading = false
             }
             
         } catch {
             let errorMessage = error.localizedDescription
             await MainActor.run {
+                self.isLoading = false
                 viewState = .error(errorMessage)
             }
         }
@@ -69,6 +71,7 @@ public final class HomeScreenViewModel: ObservableObject {
             } catch {
                 let errorMessage = error.localizedDescription
                 await MainActor.run {
+                    self.isLoading = false
                     viewState = .error(errorMessage)
                 }
             }

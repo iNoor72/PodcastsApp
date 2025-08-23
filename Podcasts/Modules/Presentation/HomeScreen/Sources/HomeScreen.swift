@@ -15,30 +15,60 @@ public struct HomeScreen: View {
     }
     
     public var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 32) {
-                ForEach(viewModel.sections, id: \.id) { section in
-                    ContentSection(section: section, isRTL: isRTL)
-                        .onAppear {
-                            Task {
-                                await viewModel.fetchMorePodcastsIfNeeded(item: section)
-                            }
+        ZStack {
+            switch viewModel.viewState {
+            case .initial:
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundStyle(.white)
+                    .onAppear {
+                        Task {
+                            await viewModel.fetchPodcasts()
                         }
+                    }
+                
+            case .error(let errorMessage):
+                RetryView(errorMessage: errorMessage) {
+                    viewModel.viewState = .initial
                     
-                    if section != viewModel.sections.last {
-                        Divider()
-                            .frame(height: 0.5)
-                            .background(.white)
+                    Task {
+                        await viewModel.fetchPodcasts()
                     }
                 }
+                .background(.black)
+                
+            default:
+                contentView
             }
-            .padding(.vertical, 20)
         }
         .background(Color.black)
-        .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
-        .onAppear {
-            Task {
-                await viewModel.fetchPodcasts()
+    }
+    
+    private var contentView: some View {
+        ZStack {
+            ScrollView {
+                LazyVStack(spacing: 32) {
+                    ForEach(viewModel.sections, id: \.id) { section in
+                        ContentSection(section: section, isRTL: isRTL)
+                            .onAppear {
+                                Task {
+                                    await viewModel.fetchMorePodcastsIfNeeded(item: section)
+                                }
+                            }
+                        
+                        if section != viewModel.sections.last {
+                            Divider()
+                                .frame(height: 0.5)
+                                .background(.white)
+                        }
+                    }
+                }
+                .padding(.vertical, 20)
+            }
+            .environment(\.layoutDirection, isRTL ? .rightToLeft : .leftToRight)
+            
+            if viewModel.isLoading {
+                ProgressView()
             }
         }
     }

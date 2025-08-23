@@ -19,27 +19,47 @@ public struct SearchScreen: View {
     }
     
     public var body: some View {
-        contentView
-            .background(.black)
-            .onChange(of: viewModel.debounceValue) { query in
-                Task {
-                    await viewModel.searchPodcasts(with: query)
+        ZStack {
+            switch viewModel.viewState {
+            case .error(let errorMessage):
+                RetryView(errorMessage: errorMessage) {
+                    viewModel.viewState = .initial
+                    
+                    Task {
+                        await viewModel.searchPodcasts(with: viewModel.searchQuery)
+                    }
                 }
+                
+            default:
+                contentView
+                    .onChange(of: viewModel.debounceValue) { query in
+                        Task {
+                            await viewModel.searchPodcasts(with: query)
+                        }
+                    }
             }
+        }
+        .background(.black)
     }
     
     @ViewBuilder
     private var contentView: some View {
-        SearchScrollView(
-            query: $viewModel.searchQuery,
-            showCancelButton: true,
-            cancelAction: {
-                viewModel.searchQuery = ""
-                viewModel.sections.removeAll()
-            },
-            scrollContent: scrollContent,
-            onSearchContent: onSearchContent
-        )
+        ZStack {
+            SearchScrollView(
+                query: $viewModel.searchQuery,
+                showCancelButton: true,
+                cancelAction: {
+                    viewModel.searchQuery = ""
+                    viewModel.sections.removeAll()
+                },
+                scrollContent: scrollContent,
+                onSearchContent: onSearchContent
+            )
+            
+            if viewModel.isLoading {
+                ProgressView()
+            }
+        }
     }
     
     private var scrollContent: some View {

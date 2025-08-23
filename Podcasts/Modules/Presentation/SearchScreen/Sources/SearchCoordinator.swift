@@ -9,9 +9,13 @@ import Foundation
 import Common
 import SwiftUI
 
-public final class SearchCoordinator: RoutableCoordinator {
+public protocol SearchCoordinatorProtocol: AnyObject {
+    
+}
+
+public final class SearchCoordinator: RoutableCoordinator, SearchCoordinatorProtocol {
     public enum Route: Hashable {
-        case viewB
+        //Add cases here when needed
     }
     
     public init(path: [Route], modal: ModalRoute<Route>? = nil) {
@@ -30,14 +34,8 @@ public final class SearchCoordinator: RoutableCoordinator {
     @ViewBuilder
     public func view(for route: Route) -> some View {
         switch route {
-        case .viewB:
+        default:
             ProgressView()
         }
-    }
-}
-
-public extension SearchCoordinator {
-    func routeToViewB() {
-        
     }
 }
