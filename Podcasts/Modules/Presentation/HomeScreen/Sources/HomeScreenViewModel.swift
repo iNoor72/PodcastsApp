@@ -74,8 +74,4 @@ public final class HomeScreenViewModel: ObservableObject {
             }
         }
     }
-    
-    public func searchButtonTapped() {
-        
-    }
 }
