@@ -8,13 +8,21 @@
 import SwiftUI
 import DI
 import Common
+import DebugSwift
 
 @main
 struct PodcastApp: App {
     private let coordinator = AppCoordinator(path: [])
+    private var debugSwift: DebugSwift
     
     init() {
         FontManager.registerFonts()
+        
+        #if DEBUG
+        debugSwift = DebugSwift()
+        debugSwift.setup()
+        debugSwift.show()
+        #endif
     }
     
     var body: some Scene {
