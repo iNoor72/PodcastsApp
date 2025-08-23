@@ -9,10 +9,10 @@ import Foundation
 import Domain
 
 public struct SearchScreenViewModelDependencies {
-    let coordinator: SearchCoordinator
+    let coordinator: SearchCoordinatorProtocol
     let searchUseCase: SearchUseCase
     
-    public init(coordinator: SearchCoordinator, searchUseCase: SearchUseCase) {
+    public init(coordinator: SearchCoordinatorProtocol, searchUseCase: SearchUseCase) {
         self.coordinator = coordinator
         self.searchUseCase = searchUseCase
     }

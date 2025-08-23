@@ -9,10 +9,10 @@ import Foundation
 import Domain
 
 public struct HomeScreenViewModelDependencies {
-    let coordinator: HomeCoordinator
+    let coordinator: HomeCoordinatorProtocol
     let fetchPodcastsUseCase: FetchSectionsUseCase
     
-    public init(coordinator: HomeCoordinator, fetchPodcastsUseCase: FetchSectionsUseCase) {
+    public init(coordinator: HomeCoordinatorProtocol, fetchPodcastsUseCase: FetchSectionsUseCase) {
         self.coordinator = coordinator
         self.fetchPodcastsUseCase = fetchPodcastsUseCase
     }
