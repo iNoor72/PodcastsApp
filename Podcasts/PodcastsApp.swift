@@ -13,15 +13,15 @@ import DebugSwift
 @main
 struct PodcastApp: App {
     private let coordinator = AppCoordinator(path: [])
-    private var debugSwift: DebugSwift
+    private var debugSwift: DebugSwift?
     
     init() {
         FontManager.registerFonts()
         
         #if DEBUG
         debugSwift = DebugSwift()
-        debugSwift.setup()
-        debugSwift.show()
+        debugSwift?.setup()
+        debugSwift?.show()
         #endif
     }
     
