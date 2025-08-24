@@ -20,6 +20,11 @@ let package = Package(
             name: "Data",
             dependencies: ["Domain"]
         ),
+        .testTarget(
+            name: "DataTests",
+            dependencies: ["Data"],
+            path: "Tests/DataTests"
+        )
     ],
     swiftLanguageModes: [.version("5.9")]
 )
